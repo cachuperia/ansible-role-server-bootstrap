@@ -10,7 +10,6 @@
   apt:
     name:
       - hstr
-    state: latest
     update_cache: yes
 
 - name: Add hstr config to the .bashrc
