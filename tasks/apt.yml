@@ -1,0 +1,32 @@
+- name: Install base apt packages
+  become: true
+  apt:
+    cache_valid_time: "{{ cache_valid_time }}"
+    name:
+      - apt-transport-https
+      - byobu
+      - ca-certificates
+      - curl
+      - direnv
+      - git
+      - htop
+      - iotop
+      - lsb-release
+      - multitail
+      - python3
+      - python3-pip
+      - unzip
+      - wget
+    state: latest
+    update_cache: yes
+
+- name: Add direnv hook to the .bashrc config
+  blockinfile:
+    block: |
+      eval "$(direnv hook bash)"
+    marker: "# {mark} direnv ANSIBLE MANAGED BLOCK"
+    path: "{{ ansible_env.HOME }}/.bashrc"
+
+- include: reboot.yml
+  tags:
+    - reboot

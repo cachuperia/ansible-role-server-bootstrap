@@ -1,0 +1,21 @@
+---
+# defaults file for server-bootstrap
+
+cache_valid_time: 3600
+
+terragrunt_version: "v0.26.0"
+terragrunt_binary: terragrunt_linux_amd64
+
+packer_version: "1.6.5"
+packer_binary: linux_amd64
+
+terraform_docs_version: "v0.10.1"
+terraform_docs_binary: linux-amd64
+
+tflint_version: "0.20.3"
+tflint_binary: linux_amd64
+
+python_version: "3.8.5"
+
+sops_version: "3.6.1"
+sops_binary: amd64

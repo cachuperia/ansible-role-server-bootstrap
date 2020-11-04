@@ -1,0 +1,44 @@
+- include: base.yml
+  tags:
+    - base
+
+- include: packer.yml
+  tags:
+    - packer
+
+- include: pipx.yml
+  tags:
+    - pipx
+
+- include: poetry.yml
+  tags:
+    - poetry
+
+- include: pyenv.yml
+  tags:
+    - pipx
+    - poetry
+    - python
+
+- include: sops.yml
+  tags:
+    - sops
+
+- include: terraform.yml
+  tags:
+    - terraform
+    - terraform-docs
+    - terragrunt
+    - tflint
+
+- include: terraform-docs.yml
+  tags:
+    - terraform-docs
+
+- include: terragrunt.yml
+  tags:
+    - terragrunt
+
+- include: tflint.yml
+  tags:
+    - tflint

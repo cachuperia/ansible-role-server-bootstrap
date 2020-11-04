@@ -1,0 +1,16 @@
+- name: Check pipx version
+  changed_when: "version.rc != 0"
+  failed_when: False
+  register: version
+  command: "{{ ansible_env.HOME }}/.local/bin/pipx --version"
+
+- name: Install pipx
+  when: version is changed
+  shell: "{{ ansible_env.HOME }}/.pyenv/shims/python -m pip install --user pipx"
+
+- name: Add pipx config tho the .bashrc
+  blockinfile:
+    block: |
+      export PATH=$HOME/.local/bin:$PATH
+    marker: "# {mark} pipx ANSIBLE MANAGED BLOCK"
+    path: "{{ ansible_env.HOME }}/.bashrc"

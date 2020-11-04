@@ -1,0 +1,25 @@
+- name: Set more friendly shell hints
+  blockinfile:
+    block: |
+      case "$TERM" in
+          xterm-color|*-256color) color_prompt=yes;;
+      esac
+      force_color_prompt=yes
+      if [ -n "$force_color_prompt" ]; then
+          if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+          color_prompt=yes
+          else
+          color_prompt=
+          fi
+      fi
+      if [ "$color_prompt" = yes ]; then
+          PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\] \w\n\[\033[0;0m\] └─\[\033[0;32m\]$(__git_ps1)\[\033[0;0m\] \$ '
+      else
+          PS1='${debian_chroot:+($debian_chroot)}u@\h\[\033[0;36m\] \w\n\[\033[0;0m\] └─\[\033[0;32m\]$(__git_ps1)\[\033[0;0m\] \$ '
+      fi
+      unset color_prompt force_color_prompt
+
+      # https://unix.stackexchange.com/a/265649/204020
+      export HISTCONTROL=ignoreboth:erasedups
+    marker: "# {mark} shell ANSIBLE MANAGED BLOCK"
+    path: "{{ ansible_env.HOME }}/.bashrc"

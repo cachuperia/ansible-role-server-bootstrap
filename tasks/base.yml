@@ -1,0 +1,9 @@
+- include: apt-upgrade.yml
+
+- include: apt.yml
+
+- include: hstr.yml
+
+- include: bashrc.yml
+
+- include: ssh.yml
