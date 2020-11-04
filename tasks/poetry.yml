@@ -1,0 +1,25 @@
+- name: Check poetry version
+  changed_when: "version.rc != 0"
+  failed_when: False
+  register: version
+  command: "{{ ansible_env.HOME }}/.poetry/bin/poetry -V"
+
+- name: Install poetry
+  when: version is changed
+  shell: >
+    set -o pipefail &&
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py |
+    {{ ansible_env.HOME }}/.pyenv/shims/python
+
+- name: Update poetry
+  changed_when: "'You are using the latest version' not in update.stdout"
+  register: update
+  shell: "{{ ansible_env.HOME }}/.poetry/bin/poetry self update"
+
+- name: Add poetry config to the .bashrc
+  blockinfile:
+    block: |
+      export PATH="$HOME/.poetry/bin:$PATH"
+    insertbefore: BOF
+    marker: "# {mark} poetry ANSIBLE MANAGED BLOCK"
+    path: "{{ ansible_env.HOME }}/.bashrc"

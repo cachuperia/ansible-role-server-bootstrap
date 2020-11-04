@@ -1,0 +1,14 @@
+- name: Check packer version
+  changed_when: "version.rc != 0 or packer_version not in version.stdout"
+  failed_when: False
+  register: version
+  command: packer -v
+
+- name: Install packer
+  become: true
+  when: version is changed
+  unarchive:
+    dest: /usr/bin
+    mode: "755"
+    remote_src: yes
+    src: "https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_{{ packer_binary }}.zip"

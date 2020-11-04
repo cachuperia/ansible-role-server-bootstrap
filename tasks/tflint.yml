@@ -1,0 +1,14 @@
+- name: Check tflint version
+  changed_when: "version.rc != 0 or tflint_version not in version.stdout"
+  failed_when: False
+  register: version
+  command: "tflint -v"
+
+- name: Install tflint
+  become: true
+  when: version is changed
+  unarchive:
+    dest: /usr/bin
+    mode: "755"
+    remote_src: yes
+    src: "https://github.com/terraform-linters/tflint/releases/download/v{{ tflint_version }}/tflint_{{ tflint_binary }}.zip"

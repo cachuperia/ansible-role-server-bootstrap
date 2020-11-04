@@ -1,0 +1,20 @@
+- name: Creates ~/.ssh/config
+  file:
+    access_time: preserve
+    mode: "600"
+    modification_time: preserve
+    path: "{{ ansible_env.HOME }}/.ssh/config"
+    state: touch
+
+- name: Create base SSH config file
+  blockinfile:
+    block: |
+      Host *
+        AddressFamily inet
+        ControlMaster auto
+        ControlPath /tmp/%r@%h-%p
+        IdentitiesOnly yes
+        ServerAliveCountMax 3
+        ServerAliveInterval 30
+    marker: "# {mark} global config ANSIBLE MANAGED BLOCK"
+    path: "{{ ansible_env.HOME }}/.ssh/config"
