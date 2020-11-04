@@ -2,9 +2,11 @@
   tags:
     - base
 
-- include: packer.yml
+- include: pyenv.yml
   tags:
-    - packer
+    - pipx
+    - poetry
+    - python
 
 - include: pipx.yml
   tags:
@@ -14,11 +16,9 @@
   tags:
     - poetry
 
-- include: pyenv.yml
+- include: packer.yml
   tags:
-    - pipx
-    - poetry
-    - python
+    - packer
 
 - include: sops.yml
   tags:
