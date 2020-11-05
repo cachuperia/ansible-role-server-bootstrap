@@ -1,11 +1,11 @@
-- name: Check poetry version
+- name: Check poetry existence
   changed_when: "version.rc != 0"
   failed_when: False
-  register: version
+  register: current_poetry_version
   command: "{{ ansible_env.HOME }}/.poetry/bin/poetry -V"
 
 - name: Install poetry
-  when: version is changed
+  when: current_poetry_version is changed
   shell: >
     set -o pipefail &&
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py |
@@ -14,8 +14,8 @@
     executable: /bin/bash
 
 - name: Update poetry
-  changed_when: "'You are using the latest version' not in update.stdout"
-  register: update
+  changed_when: "'You are using the latest version' not in poetry_update.stdout"
+  register: poetry_update
   shell: "{{ ansible_env.HOME }}/.poetry/bin/poetry self update"
 
 - name: Add poetry config to the .bashrc
