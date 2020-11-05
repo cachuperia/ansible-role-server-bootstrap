@@ -19,22 +19,20 @@
       - zlib1g-dev
     update_cache: yes
 
-- name: Check pyenv installation
-  changed_when: "version.rc != 0"
-  failed_when: False
-  register: version
-  command: "{{ ansible_env.HOME }}/.pyenv/bin/pyenv --version"
-
-- name: Clone pyenv
-  when: version is changed
+- name: Clone/update pyenv
   git:
     dest: "{{ ansible_env.HOME }}/.pyenv"
     repo: https://github.com/pyenv/pyenv.git
 
-- name: Install default python for user
+- name: Check global Python version
+  changed_when: "current_python_version.rc != 0 or current_python_version not in version.stdout"
+  register: current_python_version
+  command: python -V
+
+- name: Install/modify default python for user
   args:
     executable: /bin/bash
-  when: version is changed
+  when: current_python_version is changed
   shell: >
     PYENV_ROOT="$HOME/.pyenv" &&
     PATH="$PYENV_ROOT/bin:$PATH" &&
@@ -58,5 +56,5 @@
   blockinfile:
     marker: "# {mark} byobu python ANSIBLE MANAGED BLOCK"
     block: |
-      export BYOBU_PYTHON="$PYENV_ROOT/shims/python3"
+      export BYOBU_PYTHON="$PYENV_ROOT/shims/python"
     path: ~/.bashrc
