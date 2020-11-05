@@ -24,8 +24,9 @@
     dest: "{{ ansible_env.HOME }}/.pyenv"
     repo: https://github.com/pyenv/pyenv.git
 
-- name: Check global Python version
+- name: Check dedault Python version
   changed_when: "current_python.rc != 0 or python_version not in current_python.stdout"
+  failed_when: False
   register: current_python
   command: "{{ ansible_env.HOME }}/.pyenv/shims/python -V"
 
