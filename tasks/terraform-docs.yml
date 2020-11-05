@@ -10,6 +10,5 @@
   get_url:
     dest: /usr/bin/terraform-docs
     mode: "755"
-    url: >
-      https://github.com/terraform-docs/terraform-docs/releases/download/
-      {{ terraform_docs_version }}/terraform-docs-{{ terraform_docs_version }}-{{ terraform_docs_binary }}"
+    url: "https://github.com/terraform-docs/terraform-docs/releases/download/\
+{{ terraform_docs_version }}/terraform-docs-{{ terraform_docs_version }}-{{ terraform_docs_binary }}"
