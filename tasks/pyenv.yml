@@ -25,14 +25,14 @@
     repo: https://github.com/pyenv/pyenv.git
 
 - name: Check global Python version
-  changed_when: "current_python_version.rc != 0 or current_python_version not in version.stdout"
-  register: current_python_version
-  command: python -V
+  changed_when: "current_python.rc != 0 or python_version not in current_python.stdout"
+  register: current_python
+  command: "{{ ansible_env.HOME }}/.pyenv/shims/python -V"
 
 - name: Install/modify default python for user
   args:
     executable: /bin/bash
-  when: current_python_version is changed
+  when: current_python is changed
   shell: >
     PYENV_ROOT="$HOME/.pyenv" &&
     PATH="$PYENV_ROOT/bin:$PATH" &&
