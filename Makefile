@@ -9,4 +9,4 @@ bootstrap:  ## Install pre-commit hook
 	pre-commit install
 
 tasks:  ## List playbook tasks
-	ansible-playbook tasks/main.yml --list-tasks
+	ansible-playbook tests/playbook.yml --list-tasks
