@@ -1,19 +1,20 @@
 - name: Add PPA for hstr
   become: true
-  register: hstr_added
+  register: hstr_ppa_added
   apt_repository:
     repo: "ppa:ultradvorka/ppa"
     state: present
 
 - name: Install hstr
   become: true
+  when: hstr_ppa_added is changed
   apt:
     name:
       - hstr
-    update_cache: yes
+    update_cache: true
 
 - name: Add hstr config to the .bashrc
-  when: hstr_added is changed
+  when: hstr_ppa_added is changed
   shell: "hstr --show-configuration >> {{ ansible_env.HOME }}/.bashrc"
 
 - include: reboot.yml

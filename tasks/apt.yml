@@ -19,7 +19,7 @@
       - python3-pip
       - unzip
       - wget
-    update_cache: yes
+    update_cache: true
 
 - name: Add direnv hook to the .bashrc config
   blockinfile:

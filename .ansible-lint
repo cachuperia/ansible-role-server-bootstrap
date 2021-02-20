@@ -1,4 +1,3 @@
-skip_list:
-  - '106'
-  - '305'
-  - '401'
+warn_list:
+  - git-latest
+  - role-name
