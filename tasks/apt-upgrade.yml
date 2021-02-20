@@ -2,7 +2,7 @@
   become: true
   apt:
     cache_valid_time: "{{ cache_valid_time }}"
-    update_cache: yes
+    update_cache: true
 
 - name: Upgrade all packages
   become: true

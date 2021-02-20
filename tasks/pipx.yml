@@ -1,12 +1,12 @@
-- name: Check pipx version
-  changed_when: "version.rc != 0"
-  failed_when: False
-  register: version
+- name: Check pipx existence
+  changed_when: "no_pipx.rc != 0"
+  failed_when: false
+  register: no_pipx
   command: "{{ ansible_env.HOME }}/.local/bin/pipx --version"
 
 - name: Install pipx
-  when: version is changed
-  shell: "{{ ansible_env.HOME }}/.pyenv/shims/python -m pip install --user pipx"
+  when: no_pipx is changed
+  command: "{{ ansible_env.HOME }}/.pyenv/shims/python -m pip install --user pipx"
 
 - name: Add pipx config tho the .bashrc
   blockinfile:

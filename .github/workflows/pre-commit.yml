@@ -1,0 +1,13 @@
+on:
+  - pull_request
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    name: Check all files with pre-commit
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - uses: actions/checkout@v2
+      - uses: pre-commit/action@v2.0.0

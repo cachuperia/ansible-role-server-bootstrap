@@ -1,11 +1,12 @@
 - name: Check sops version
-  changed_when: "version.rc != 0 or sops_version not in version.stdout"
-  failed_when: False
-  register: version
-  command: "sops -v"
+  changed_when: (sops_version.rc != 0) or
+                (sops_expected not in sops_version.stdout)
+  failed_when: false
+  register: sops_version
+  command: sops -v
 
 - name: Install sops
   become: true
-  when: version is changed
+  when: sops_version is changed
   apt:
-    deb: "https://github.com/mozilla/sops/releases/download/v{{ sops_version }}/sops_{{ sops_version }}_{{ sops_binary }}.deb"
+    deb: "https://github.com/mozilla/sops/releases/download/v{{ sops_expected }}/sops_{{ sops_expected }}_{{ sops_binary }}.deb"

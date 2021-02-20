@@ -1,13 +1,14 @@
 - name: Check terragrunt version
-  changed_when: "version.rc != 0 or terragrunt_version not in version.stdout"
-  failed_when: False
-  register: version
+  changed_when: (terragrunt_version.rc != 0) or
+                (terragrunt_expected not in terragrunt_version.stdout)
+  failed_when: false
+  register: terragrunt_version
   command: terragrunt -v
 
 - name: Install terragrunt
   become: true
-  when: version is changed
+  when: terragrunt_version is changed
   get_url:
     dest: /usr/bin/terragrunt
     mode: "755"
-    url: "https://github.com/gruntwork-io/terragrunt/releases/download/{{ terragrunt_version }}/{{ terragrunt_binary }}"
+    url: "https://github.com/gruntwork-io/terragrunt/releases/download/v{{ terragrunt_expected }}/{{ terragrunt_binary }}"
