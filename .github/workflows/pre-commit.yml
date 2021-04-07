@@ -1,10 +1,15 @@
 on:
-  - pull_request
+  push:
+    branches:
+      - master  # globally available cache https://stackoverflow.com/a/66632107/4249707
+  pull_request:
 
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
     name: Check all files with pre-commit
+    env:
+      SKIP: no-commit-to-branch
     steps:
       - uses: actions/setup-python@v2
         with:
