@@ -14,9 +14,14 @@
     repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
     state: present
 
+- name: Run the equivalent of "apt-get update"
+  when: terraform_key_added is changed
+  apt:
+    update_cache: true
+
 - name: Install terraform
   become: true
-  when: terraform_repo_added is changed
   apt:
-    name: terraform
-    update_cache: true
+    name: terraform={{ terraform_expected }}
+    # allow_downgrades: yes
+    force: true  # https://github.com/ansible/ansible/issues/29451
