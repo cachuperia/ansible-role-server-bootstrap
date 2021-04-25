@@ -1,0 +1,10 @@
+[tool.poetry]
+version =  "0.4.0"
+
+[tool.semantic_release]
+version_variable = [
+    "pyproject.toml:version"
+]
+upload_to_pypi = false
+upload_to_release = false
+commit_subject = "chore(release): {version}"
