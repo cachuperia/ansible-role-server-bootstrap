@@ -1,8 +1,6 @@
 # ansible-role-server-bootstrap
 Ansible role for Ubuntu server bootstrap
 
-Abandoned in favor of https://github.com/IaroslavR/ansible-role-server-bootstrap
-
 #### Available tags
 `make tasks`
 
