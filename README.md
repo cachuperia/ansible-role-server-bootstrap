@@ -3,16 +3,7 @@ Ansible role for Ubuntu server bootstrap
 
 ## Prerequisites
 - [Ansible][ans] >=2.9 installed globally
-- [git][git] installed globally
-
-- After Ansible will be installed you have to create a role 'server-bootstrap'.
-  An easiest way is to do it is to create in the project's root a directory called 'roles/'
-  and put a file 'roles.yaml' with following content:
-  ```yaml
-  ---
-  roles:
-    - role: server-bootstrap
-  ```
+- [git][git] installed globally (if you plan to use this repo locally)
 
 #### Available tags
 `make tasks`
@@ -22,19 +13,25 @@ Ansible role for Ubuntu server bootstrap
 
 #### Usage
 ##### In playbooks
-Add this role to the playbook `requirements.yml`
+After Ansible will be installed you have to install a role `server-bootstrap` from this repo.
+An easiest way to do it is to create a playbook `requirements.yaml` with the following content:
 ```yaml
-- src: git+ssh://git@github.com/IaroslavR/ansible-role-server-bootstrap.git
-  scm: git
-  version: master
-  name: server-bootstrap
+---
+roles:
+  - src: git+ssh://git@github.com/IaroslavR/ansible-role-server-bootstrap.git
+    scm: git
+    version: master
+    name: server-bootstrap
 ```
-and use it
+and install it with `ansible-galaxy`: `ansible-galaxy install -r requirements.yaml`
+
+You can use this role in your playbook now to provision remote servers. Just add this role to it:
 ```yaml
   roles:
     - role: server-bootstrap
 ```
 ##### Directly on localhost
+If you want to install all plays on your localhost. Copy file `test.yml` and run:
 `ansible-playbook test.yml`
 or
 `sudo ansible-playbook test.yml`
