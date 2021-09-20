@@ -19,5 +19,5 @@ tflint_binary: linux_amd64
 
 default_user_python_version: "3.8.7"
 
-sops_expected: "3.6.1"
+sops_expected: "3.7.1"
 sops_binary: amd64
