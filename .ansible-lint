@@ -1,6 +1,7 @@
 warn_list:
   - git-latest
   - role-name
+  - no-handler
 
 exclude_paths:
   - .github/
