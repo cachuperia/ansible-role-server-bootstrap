@@ -1,6 +1,6 @@
 - name: Check sops version
   changed_when: (sops_version.rc != 0) or
-                (sops_expected not in sops_version.stdout)
+                (sops_expected not in sops_version.stdout_lines[0])
   failed_when: false
   register: sops_version
   command: sops -v
