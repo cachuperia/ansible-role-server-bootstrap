@@ -32,9 +32,7 @@ You can use this role in your playbook now to provision remote servers. Just add
 ```
 ##### Directly on localhost
 If you want to install all plays on your localhost. Copy file `test.yml` and run:
-`ansible-playbook test.yml`
-or
-`sudo ansible-playbook test.yml`
+`ansible-playbook test.yml`.
 
 [ans]: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu
 [git]: https://git-scm.com/download/linux
