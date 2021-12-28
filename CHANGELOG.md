@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.2 (2021-12-28)
+### Fix
+* Pyenv install default python task ([`8e13786`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/8e137861b5291929544518dfa68b7c603682f340))
+* Pyenv .bashrc block ([`c614e99`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/c614e99118783c760c9a22da458333e7f141e1c6))
+
 ## v0.6.1 (2021-09-20)
 ### Fix
 * Sops not updated, due to `<version> is available` in the help string ([`fafacbe`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/fafacbe803776e8aaee93a8a5db560f27db2bdfe))
