@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.0 (2022-01-16)
+### Feature
+* Bump terraform toolchain ([`a125881`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/a12588177d720090d0ba4d0e92bc2df54bee5247))
+
 ## v0.6.2 (2021-12-28)
 ### Fix
 * Pyenv install default python task ([`8e13786`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/8e137861b5291929544518dfa68b7c603682f340))
