@@ -8,8 +8,9 @@
 - name: Install terraform-docs
   become: true
   when: terraform_docs_version is changed
-  get_url:
-    dest: /usr/bin/terraform-docs
+  unarchive:
+    dest: /usr/bin
     mode: "755"
-    url: "https://github.com/terraform-docs/terraform-docs/releases/download/\
-v{{ terraform_docs_expected }}/terraform-docs-v{{ terraform_docs_expected }}-{{ terraform_docs_binary }}"
+    remote_src: true
+    src: "https://github.com/terraform-docs/terraform-docs/releases/download/\
+v{{ terraform_docs_expected }}/terraform-docs-v{{ terraform_docs_expected }}-{{ terraform_docs_binary }}.tar.gz"
