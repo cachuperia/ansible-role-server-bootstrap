@@ -9,6 +9,7 @@
       - curl
       - direnv
       - git
+      - gnupg-agent
       - htop
       - iotop
       - lsb-release

@@ -1,0 +1,65 @@
+- name: Add the GPG key for the official Docker repository
+  become: true
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Save the current Ubuntu release version into a variable
+  command: lsb_release -cs
+  register: ubuntu_version
+  changed_when: ubuntu_version.rc != 0
+
+- name: Add the Docker repository to APT sources
+  become: true
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable
+    state: present
+  register: docker_repository
+
+- name: Create docker group
+  become: true
+  when: docker_repository is changed
+  group:
+    name: docker
+    state: present
+
+- name: adding  user "{{ ansible_user }}" to the docker group
+  become: true
+  when: docker_repository is changed
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: true
+
+- name: Install Docker
+  become: true
+  when: docker_repository is changed
+  apt:
+    name: docker-ce
+    update_cache: true
+
+- name: Start docker daemon
+  become: true
+  when: docker_repository is changed
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items:
+    - docker
+    - containerd
+
+- name: Check docker-compose version
+  changed_when: (docker_compose_version.rc != 0) or
+                (docker_compose_expected not in docker_compose_version.stdout_lines[0])
+  failed_when: false
+  register: docker_compose_version
+  command: docker-compose -v
+
+- name: Install docker-compose
+  become: true
+  when: docker_compose_version is changed
+  get_url:
+    dest: /usr/bin/docker-compose
+    mode: "755"
+    url: "https://github.com/docker/compose/releases/download/v{{ docker_compose_expected }}/docker-compose-{{ docker_compose_binary }}"

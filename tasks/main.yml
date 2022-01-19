@@ -2,6 +2,10 @@
   tags:
     - base
 
+- include: docker.yml
+  tags:
+    - docker
+
 - include: pyenv.yml
   tags:
     - pipx
