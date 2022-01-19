@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.0 (2022-01-19)
+### Feature
+* Add Docker installation task ([`ed8125e`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/ed8125ee6af8b33d146f607d6c91b9373aeb3744))
+* Bump base Python to 3.8.12 ([`f73edf0`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/f73edf08684a060a9bf7dcbf791059b08c0e0d2e))
+
 ## v0.7.0 (2022-01-16)
 ### Feature
 * Bump terraform toolchain ([`a125881`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/a12588177d720090d0ba4d0e92bc2df54bee5247))
