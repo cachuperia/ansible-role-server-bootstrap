@@ -23,3 +23,11 @@
     insertbefore: BOF
     marker: "# {mark} .local/bin ANSIBLE MANAGED BLOCK"
     path: "{{ ansible_env.HOME }}/.bashrc"
+
+- name: Install tools
+  register: tool_installed
+  changed_when: '"already seems to be installed" not in tool_installed.stdout'
+  command: "{{ ansible_env.HOME }}/.local/bin/pipx install {{ item }}"
+  with_items:
+    - pre-commit
+    - awscli
