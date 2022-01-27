@@ -1,18 +1,20 @@
 # ansible-role-server-bootstrap
-Ansible role for Ubuntu server bootstrap
+Ansible role for Ubuntu server bootstrap.
 
 ## Prerequisites
-- [Ansible][ans] >=2.9 installed globally
-- [git][git] installed globally (if you plan to use this repo locally)
+- [Ansible][ans] v**2.9** installed on host system
+- [git][git] installed on host system
 
-#### Available tags
-`make tasks`
+## Usage
 
-#### Available variables
-[defaults/main.yml](defaults/main.yml)
+Run `make` for list all available targets.
 
-#### Usage
-##### In playbooks
+### Directly on localhost
+- `git clone git@github.com:IaroslavR/ansible-role-server-bootstrap.git`
+- `cd ansible-role-server-bootstrap`
+-  `ansible-playbook test.yml --extra-vars "ansible_sudo_pass=<sudo password>"` or `ansible-playbook test.yml` if passwordless sudo configured for user.
+
+### In playbooks
 After Ansible will be installed you have to install a role `server-bootstrap` from this repo.
 An easiest way to do it is to create a playbook `requirements.yaml` with the following content:
 ```yaml
@@ -30,9 +32,19 @@ You can use this role in your playbook now to provision remote servers. Just add
   roles:
     - role: server-bootstrap
 ```
-##### Directly on localhost
-If you want to install all plays on your localhost. Copy file `test.yml` and run:
-`ansible-playbook test.yml`.
+
+### Available tasks and corresponding tags
+
+`make tasks`
+
+### Available variables
+
+[defaults/main.yml](defaults/main.yml)
+
+## Contribute
+
+Use [Conventional Commits][cc] message style.
 
 [ans]: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu
 [git]: https://git-scm.com/download/linux
+[cc]: https://www.conventionalcommits.org/en/v1.0.0/
