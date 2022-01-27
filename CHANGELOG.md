@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.0 (2022-01-27)
+### Feature
+* Essential cli tools to install ([`ee2b375`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/ee2b375f3975e2013329250aea4d7e1cc5eea054))
+
+### Fix
+* Pipx installation ([`f81d53b`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/f81d53b1ed77a85e0648381185b51ec537216572))
+* Poetry installation ([`b5037ee`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/b5037ee03186c8c2eafb772c414f403e76bbded0))
+* Pyenv global Python check ([`df72296`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/df72296847c1db2517e73373b317e8444f840878))
+
+### Documentation
+* Clarify usage examples ([`e523060`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/e5230608af85b846b4c2815feaac425887f99be6))
+
 ## v0.8.0 (2022-01-19)
 ### Feature
 * Add Docker installation task ([`ed8125e`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/ed8125ee6af8b33d146f607d6c91b9373aeb3744))
