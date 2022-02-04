@@ -23,11 +23,11 @@
     name: docker
     state: present
 
-- name: adding  user "{{ ansible_user }}" to the docker group
+- name: adding  user "{{ remote_user }}" to the docker group
   become: true
   when: docker_repository is changed
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ remote_user }}"
     groups: docker
     append: true
 
