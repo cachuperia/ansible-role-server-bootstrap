@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.1 (2022-02-04)
+### Fix
+* User name in docker task ([`b7d49d3`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/b7d49d3bbc75b47f935888f47076d171d088570d))
+
 ## v0.9.0 (2022-01-27)
 ### Feature
 * Essential cli tools to install ([`ee2b375`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/ee2b375f3975e2013329250aea4d7e1cc5eea054))
