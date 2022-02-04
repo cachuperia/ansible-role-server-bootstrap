@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.2 (2022-02-04)
+### Fix
+* Revert fix user name in docker task ([`7c95fd4`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/7c95fd4d57a2a3dc6a1182e6b011197fd2f85d61))
+
 ## v0.9.1 (2022-02-04)
 ### Fix
 * User name in docker task ([`b7d49d3`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/b7d49d3bbc75b47f935888f47076d171d088570d))
