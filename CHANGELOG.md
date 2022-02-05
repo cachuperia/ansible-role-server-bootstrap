@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.3 (2022-02-05)
+### Fix
+* Docker user without sudo ([`59ccc06`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/59ccc063d6df508944e5599566eab095e33e1d59))
+
 ## v0.9.2 (2022-02-04)
 ### Fix
 * Revert fix user name in docker task ([`7c95fd4`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/7c95fd4d57a2a3dc6a1182e6b011197fd2f85d61))
