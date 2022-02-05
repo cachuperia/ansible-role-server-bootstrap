@@ -1,27 +1,15 @@
-- name: Add terraform apt-key
-  become: true
-  register: terraform_key_added
-  apt_key:
-    state: present
-    url: https://apt.releases.hashicorp.com/gpg
-
-- name: Add terraform apt repository
-  become: true
-  register: terraform_repo_added
-  when: terraform_key_added is changed
-  apt_repository:
-    mode: "666"
-    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
-    state: present
-
-- name: Run the equivalent of "apt-get update"
-  when: terraform_key_added is changed
-  apt:
-    update_cache: true
+- name: Check terrform version
+  changed_when: (terraform_version.rc != 0) or
+                (terraform_expected not in terraform_version.stdout)
+  failed_when: false
+  register: terraform_version
+  command: terraform -v
 
 - name: Install terraform
   become: true
-  apt:
-    name: terraform={{ terraform_expected }}
-    # allow_downgrades: yes
-    force: true  # https://github.com/ansible/ansible/issues/29451
+  when: terraform_version is changed
+  unarchive:
+    dest: /usr/bin
+    mode: "755"
+    remote_src: true
+    src: "https://releases.hashicorp.com/terraform/{{ terraform_expected }}/terraform_{{ terraform_expected }}_linux_amd64.zip"
