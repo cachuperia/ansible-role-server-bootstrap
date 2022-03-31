@@ -46,3 +46,7 @@
 - include: tflint.yml
   tags:
     - tflint
+
+- include: psql.yml
+  tags:
+    - psql
