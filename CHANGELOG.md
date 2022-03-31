@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.10.0 (2022-03-31)
+### Feature
+* Add PostgreSQL client ([`1314782`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/13147822be3038fcecf47af7d1556bbfef27bf31))
+
 ## v0.9.3 (2022-02-05)
 ### Fix
 * Docker user without sudo ([`59ccc06`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/59ccc063d6df508944e5599566eab095e33e1d59))
