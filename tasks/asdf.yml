@@ -1,0 +1,15 @@
+- name: Clone/update asdf
+  git:
+    dest: "{{ ansible_env.HOME }}/.asdf"
+    repo: https://github.com/asdf-vm/asdf.git
+    depth: 1
+    version: v{{ asdf_expected }}
+
+- name: Add asdf config to the .bashrc
+  blockinfile:
+    insertbefore: BOF
+    marker: "# {mark} asdf ANSIBLE MANAGED BLOCK"
+    block: |
+      . $HOME/.asdf/asdf.sh
+      . $HOME/.asdf/completions/asdf.bash
+    path: "{{ ansible_env.HOME }}/.bashrc"
