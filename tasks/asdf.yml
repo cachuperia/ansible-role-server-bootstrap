@@ -16,7 +16,7 @@
 
 - name: Install plugins
   register: asdf_plugins_installed
-  changed_when: '"already added" not in tool_installed.stderr'
+  changed_when: '"already added" not in asdf_plugins_installed.stderr'
   command: "{{ ansible_env.HOME }}/.asdf/bin/asdf plugin-add {{ item }}"
   failed_when: false
   with_items:
