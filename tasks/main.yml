@@ -50,3 +50,7 @@
 - include: psql.yml
   tags:
     - psql
+
+- include: asdf.yml
+  tags:
+    - asdf
