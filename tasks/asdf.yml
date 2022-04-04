@@ -13,3 +13,17 @@
       . $HOME/.asdf/asdf.sh
       . $HOME/.asdf/completions/asdf.bash
     path: "{{ ansible_env.HOME }}/.bashrc"
+
+- name: Install plugins
+  register: asdf_plugins_installed
+  changed_when: '"already added" not in tool_installed.stderr'
+  command: "{{ ansible_env.HOME }}/.asdf/bin/asdf plugin-add {{ item }}"
+  failed_when: false
+  with_items:
+    - github-cli https://github.com/bartlomiejdanek/asdf-github-cli.git
+    - packer https://github.com/asdf-community/asdf-hashicorp.git
+    - terraform https://github.com/asdf-community/asdf-hashicorp.git
+    - terragrunt https://github.com/ohmer/asdf-terragrunt
+    - terraform-docs https://github.com/looztra/asdf-terraform-docs
+    - tflint https://github.com/skyzyx/asdf-tflint
+    - sops https://github.com/feniix/asdf-sops.git
