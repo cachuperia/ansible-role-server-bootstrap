@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.11.2 (2022-04-04)
+### Fix
+* Add `asdf` `Install plugins` task ([`29f89cf`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/29f89cf6a513969fdafa1873b87748a0a93b65c0))
+
 ## v0.11.1 (2022-04-04)
 ### Fix
 * Add `asdf` plugins ([`8a14c35`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/8a14c354b8f5de2c6e6dba5d3a9600175c5e1d60))
