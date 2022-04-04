@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.11.0 (2022-04-04)
+### Feature
+* Add `asdf` ([`2f684cd`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/2f684cde00b6caf3558a50e7e173b6e89bb18cd8))
+
 ## v0.10.0 (2022-03-31)
 ### Feature
 * Add PostgreSQL client ([`1314782`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/13147822be3038fcecf47af7d1556bbfef27bf31))
