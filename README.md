@@ -1,5 +1,5 @@
 # ansible-role-server-bootstrap
-Ansible role for Ubuntu server bootstrap.
+Ansible role for **Ubuntu 20.04 LTS** server bootstrap.
 
 ## Prerequisites
 - [Ansible][ans] v**2.9** installed on host system
