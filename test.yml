@@ -1,6 +1,8 @@
-- hosts: localhost
+- name: Run role in-place
+  hosts: localhost
   gather_facts: true
   vars_files:
     - 'defaults/main.yml'
   tasks:
-    - include: 'tasks/main.yml'
+    - name: Run tasks
+      ansible.builtin.include_tasks: 'tasks/main.yml'

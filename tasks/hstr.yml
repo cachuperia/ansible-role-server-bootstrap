@@ -1,22 +1,36 @@
 - name: Add PPA for hstr
   become: true
   register: hstr_ppa_added
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "ppa:ultradvorka/ppa"
     state: present
 
 - name: Install hstr
   become: true
   when: hstr_ppa_added is changed
-  apt:
+  ansible.builtin.apt:
     name:
       - hstr
     update_cache: true
 
 - name: Add hstr config to the .bashrc
-  when: hstr_ppa_added is changed
-  shell: "hstr --show-configuration >> {{ ansible_env.HOME }}/.bashrc"
+  ansible.builtin.blockinfile:
+    block: |
+      alias hh=hstr                    # hh to be alias for hstr
+      export HSTR_CONFIG=hicolor       # get more colors
+      shopt -s histappend              # append new history items to .bash_history
+      export HISTCONTROL=ignoreboth:erasedups  # https://unix.stackexchange.com/a/265649/204020
+      export HISTFILESIZE=10000        # increase history file size (default is 500)
+      export HISTSIZE=${HISTFILESIZE}  # increase history size (default is 500)
+      # ensure synchronization between bash memory and history file
+      export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+      if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hstr -- \C-j"'; fi
+      # if this is interactive shell, then bind 'kill last command' to Ctrl-x k
+      if [[ $- =~ .*i.* ]]; then bind '"\C-xk": "\C-a hstr -k \C-j"'; fi
+      export HSTR_TIOCSTI=y
+    marker: "# {mark} hstr ANSIBLE MANAGED BLOCK"
+    path: "{{ ansible_env.HOME }}/.bashrc"
 
-- include: reboot.yml
-  tags:
-    - reboot
+- name: Reboot instance if necessary
+  ansible.builtin.include_tasks:
+    file: reboot.yml

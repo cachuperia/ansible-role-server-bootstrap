@@ -3,26 +3,6 @@
 
 cache_valid_time: 3600
 
-packer_expected: "1.7.0"
-packer_binary: linux_amd64
+default_user_python_version: 3.10.11
 
-terraform_expected: "0.14.10"
-
-terragrunt_expected: "0.35.20"
-terragrunt_binary: terragrunt_linux_amd64
-
-terraform_docs_expected: "0.16.0"
-terraform_docs_binary: linux-amd64
-
-tflint_expected: "0.34.1"
-tflint_binary: linux_amd64
-
-default_user_python_version: "3.8.12"
-
-sops_expected: "3.7.1"
-sops_binary: amd64
-
-docker_compose_expected: "2.2.3"
-docker_compose_binary: linux-x86_64
-
-asdf_expected: 0.9.0
+asdf_expected: 0.11.3

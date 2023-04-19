@@ -2,11 +2,11 @@
   changed_when: "no_poetry.rc != 0"
   failed_when: false
   register: no_poetry
-  command: "{{ ansible_env.HOME }}/.local/bin/poetry -V"
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/poetry -V"
 
 - name: Install poetry
   when: no_poetry is changed
-  shell: >
+  ansible.builtin.shell: >
     set -o pipefail &&
     PYENV_ROOT="$HOME/.pyenv" &&
     PATH="$PYENV_ROOT/bin:$PATH" &&
@@ -18,12 +18,12 @@
     executable: /bin/bash
 
 - name: Update poetry
-  changed_when: "'You are using the latest version' not in poetry_updated.stdout"
+  changed_when: "'No dependencies to install or update' not in poetry_updated.stdout"
   register: poetry_updated
-  command: "{{ ansible_env.HOME }}/.local/bin/poetry self update"
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/poetry self update"
 
 - name: Add poetry path to the .bashrc
-  blockinfile:
+  ansible.builtin.blockinfile:
     block: |
       export PATH="$HOME/.local/bin:$PATH"
     insertbefore: BOF
@@ -31,7 +31,7 @@
     path: "{{ ansible_env.HOME }}/.bashrc"
 
 - name: Configure poetry
-  command: "{{ ansible_env.HOME }}/.local/bin/poetry config virtualenvs.in-project true"
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/poetry config virtualenvs.in-project true"
   register: poetry_configured
   changed_when: poetry_configured.rc != 0
   failed_when: poetry_configured.rc != 0

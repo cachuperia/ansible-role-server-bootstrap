@@ -1,56 +1,66 @@
-- include: base.yml
+- name: Base setup
+  ansible.builtin.include_tasks:
+    file: base.yml
+    apply:
+      tags:
+        - base
   tags:
     - base
 
-- include: docker.yml
+- name: Add Docker
+  ansible.builtin.include_tasks:
+    file: docker.yml
+    apply:
+      tags:
+        - docker
   tags:
     - docker
 
-- include: pyenv.yml
+- name: Add pyenv
+  ansible.builtin.include_tasks:
+    file: pyenv.yml
+    apply:
+      tags:
+        - pipx
+        - poetry
+        - python
   tags:
     - pipx
     - poetry
     - python
 
-- include: pipx.yml
+- name: Add pipx
+  ansible.builtin.include_tasks:
+    file: pipx.yml
+    apply:
+      tags:
+        - pipx
   tags:
     - pipx
 
-- include: poetry.yml
+- name: Add poetry
+  ansible.builtin.include_tasks:
+    file: poetry.yml
+    apply:
+      tags:
+        poetry
   tags:
     - poetry
 
-- include: packer.yml
-  tags:
-    - packer
-
-- include: sops.yml
-  tags:
-    - sops
-
-- include: terraform.yml
-  tags:
-    - terraform
-    - terraform-docs
-    - terragrunt
-    - tflint
-
-- include: terraform-docs.yml
-  tags:
-    - terraform-docs
-
-- include: terragrunt.yml
-  tags:
-    - terragrunt
-
-- include: tflint.yml
-  tags:
-    - tflint
-
-- include: psql.yml
+- name: Add PostgreSQL client
+  ansible.builtin.include_tasks:
+    file: psql.yml
+    apply:
+      tags:
+        - psql
   tags:
     - psql
 
-- include: asdf.yml
+- name: Add asdf
+  ansible.builtin.include_tasks:
+    file: asdf.yml
+    apply:
+      tags:
+        - asdf
   tags:
     - asdf

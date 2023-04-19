@@ -1,13 +1,13 @@
-- name: Creates ~/.ssh/config
-  file:
+- name: Create SSH config file
+  ansible.builtin.file:
     access_time: preserve
     mode: "600"
     modification_time: preserve
     path: "{{ ansible_env.HOME }}/.ssh/config"
     state: touch
 
-- name: Create base SSH config file
-  blockinfile:
+- name: Configure SSH client
+  ansible.builtin.blockinfile:
     block: |
       Host *
         AddressFamily inet

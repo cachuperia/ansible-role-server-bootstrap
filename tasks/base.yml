@@ -1,9 +1,19 @@
-- include: apt-upgrade.yml
+- name: Update installed apt packages
+  ansible.builtin.include_tasks:
+    file: apt-upgrade.yml
 
-- include: apt.yml
+- name: Install base apt packages
+  ansible.builtin.include_tasks:
+    file: apt.yml
 
-- include: hstr.yml
+- name: Install shell history search
+  ansible.builtin.include_tasks:
+    file: hstr.yml
 
-- include: bashrc.yml
+- name: Customize bash configuration
+  ansible.builtin.include_tasks:
+    file: bashrc.yml
 
-- include: ssh.yml
+- name: Configure SSH
+  ansible.builtin.include_tasks:
+    file: ssh.yml
