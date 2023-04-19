@@ -1,14 +1,14 @@
 - name: Update apt cache
   become: true
-  apt:
+  ansible.builtin.apt:
     cache_valid_time: "{{ cache_valid_time }}"
     update_cache: true
 
 - name: Upgrade all packages
   become: true
-  apt:
+  ansible.builtin.apt:
     upgrade: dist
 
-- include: reboot.yml
-  tags:
-    - reboot
+- name: Reboot instance if necessary
+  ansible.builtin.include_tasks:
+    file: reboot.yml

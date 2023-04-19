@@ -1,24 +1,19 @@
-- name: Add the GPG key for the official PostgreSQL repository
-  become: true
-  apt_key:
-    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-    state: present
+- name: Add the official PostgreSQL repository to the apt sources
+  block:
+    - name: Add GPG key
+      ansible.builtin.apt_key:
+        id: B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
+        url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        state: present
 
-- name: Save the current Ubuntu release version into a variable
-  command: lsb_release -cs
-  register: ubuntu_version
-  changed_when: ubuntu_version.rc != 0
-
-- name: Add the PostgreSQL repository to APT sources
-  become: true
-  apt_repository:
-    repo: deb http://apt.postgresql.org/pub/repos/apt {{ ubuntu_version.stdout }}-pgdg main
-    state: present
-  register: pg_repository
+    - name: Add apt source
+      become: true
+      ansible.builtin.apt_repository:
+        repo: "deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"
+        state: present
 
 - name: Install PostgreSQL client
   become: true
-  when: pg_repository is changed
-  apt:
-    name: postgresql-client-14
+  ansible.builtin.apt:
+    name: postgresql-client-15
     update_cache: true

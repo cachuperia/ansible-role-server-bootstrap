@@ -1,12 +1,12 @@
 - name: Check if reboot is required
   register: reboot_required
-  stat:
+  ansible.builtin.stat:
     get_md5: false
     path: /var/run/reboot-required
 
 - name: Reboot system if required
   become: true
   when: reboot_required.stat.exists
-  reboot:
+  ansible.builtin.reboot:
     msg: Rebooting to complete system upgrade
     reboot_timeout: 120

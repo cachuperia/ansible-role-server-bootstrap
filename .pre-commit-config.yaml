@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.4.0
     hooks:
       - id: check-json
       - id: check-yaml
@@ -8,11 +8,11 @@ repos:
       - id: no-commit-to-branch
       - id: trailing-whitespace
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v5.3.2
+    rev: v6.14.6
     hooks:
       - id: ansible-lint
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v7.0.1
+    rev: v9.5.0
     hooks:
       - id: commitlint
         stages: [commit-msg]

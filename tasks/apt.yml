@@ -1,6 +1,6 @@
 - name: Install base apt packages
   become: true
-  apt:
+  ansible.builtin.apt:
     cache_valid_time: "{{ cache_valid_time }}"
     name:
       - apt-transport-https
@@ -12,23 +12,24 @@
       - gnupg-agent
       - htop
       - iotop
+      - jq
       - lsb-release
-      - multitail
       - make
-      - software-properties-common
+      - multitail
       - python3
       - python3-pip
+      - software-properties-common
       - unzip
       - wget
     update_cache: true
 
 - name: Add direnv hook to the .bashrc config
-  blockinfile:
+  ansible.builtin.blockinfile:
     block: |
       eval "$(direnv hook bash)"
     marker: "# {mark} direnv ANSIBLE MANAGED BLOCK"
     path: "{{ ansible_env.HOME }}/.bashrc"
 
-- include: reboot.yml
-  tags:
-    - reboot
+- name: Reboot instance if necessary
+  ansible.builtin.include_tasks:
+    file: reboot.yml
