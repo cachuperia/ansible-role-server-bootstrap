@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.0 (2023-04-19)
+### Feature
+* Use `22.04 LTS` as runtime ([`6a7f103`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/6a7f103f51768922941d9d42c8091aa53c9a5003))
+
+### Breaking
+* use `22.04 LTS` as runtime ([`6a7f103`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/6a7f103f51768922941d9d42c8091aa53c9a5003))
+
+### Documentation
+* Clarify Ubuntu version ([`b2856f8`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/b2856f87153a47257dd9ff6a65dbe79587a307e6))
+
 ## v0.11.2 (2022-04-04)
 ### Fix
 * Add `asdf` `Install plugins` task ([`29f89cf`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/29f89cf6a513969fdafa1873b87748a0a93b65c0))

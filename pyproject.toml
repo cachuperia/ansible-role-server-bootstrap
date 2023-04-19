@@ -1,5 +1,5 @@
 [tool.poetry]
-version =  "0.11.2"
+version =  "1.0.0"
 
 [tool.semantic_release]
 version_variable = [
