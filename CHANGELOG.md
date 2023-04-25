@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2023-04-25)
+### Fix
+* Execute as root ([`07ea86b`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/07ea86bcffdc9c35b63b355a5d3914897c8006a8))
+
 ## v1.0.0 (2023-04-19)
 ### Feature
 * Use `22.04 LTS` as runtime ([`6a7f103`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/6a7f103f51768922941d9d42c8091aa53c9a5003))
