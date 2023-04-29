@@ -1,0 +1,35 @@
+#
+Vagrant.configure("2") do |config|
+
+#    required_plugins = %w( vagrant-vbguest )
+#    _retry = false
+#    required_plugins.each do |plugin|
+#        unless Vagrant.has_plugin? plugin
+#            system "vagrant plugin install #{plugin}"
+#            _retry=true
+#        end
+#    end
+#
+#    if (_retry)
+#        exec "vagrant " + ARGV.join(' ')
+#    end
+
+  config.vm.define "jammy64", primary: true do |c|
+    c.vm.box = "ubuntu/jammy64"
+  end
+
+ # https://developer.hashicorp.com/vagrant/docs/providers/virtualbox/configuration
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 1024
+    vb.cpus = 1
+  end
+
+  Dir["test_*.yml"].sort.each do |playbook|
+    config.vm.provision playbook, type: "ansible" do |ansible|
+      ansible.playbook = playbook
+      # Uncomment for "per tag" debugging and detailed logs
+      # ansible.tags = "<tag>"
+      # ansible.raw_arguments = ['-vvv']
+    end
+  end
+end

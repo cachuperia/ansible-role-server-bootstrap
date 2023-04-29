@@ -1,0 +1,4 @@
+- name: Base test
+  hosts: all
+  roles:
+    - { role: ../../ansible-role-server-bootstrap }
