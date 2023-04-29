@@ -1,8 +1,10 @@
 warn_list:
   - git-latest
-  - role-name
-  - no-handler
   - 'name[template]' # Jinja templates should only be at the end of ‘name’
   - 'no-changed-when' # Commands should not change things if nothing needs doing
+  - no-handler
+  - role-name
+  - name[play]
+  - yaml[new-line-at-end-of-file]
 exclude_paths:
   - .github/

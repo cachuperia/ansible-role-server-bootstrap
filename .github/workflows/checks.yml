@@ -1,0 +1,18 @@
+on:
+  pull_request:
+
+jobs:
+  pre-commit:
+    uses: cachuperia/github-reusable-workflows/.github/workflows/pre-commit.yml@v1.1.0
+
+  commitlint:
+    uses: cachuperia/github-reusable-workflows/.github/workflows/commitlint.yml@v1.1.0
+
+  approve:
+    if: ${{ success() }}
+    needs:
+      - pre-commit
+      - commitlint
+    uses: cachuperia/github-reusable-workflows/.github/workflows/approve.yml@v1.1.0
+    secrets:
+      token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
