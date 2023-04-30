@@ -1,20 +1,12 @@
 - name: Check pipx existence
-  changed_when: "no_pipx.rc != 0"
+  changed_when: "pipx_version.rc != 0"
   failed_when: false
-  register: no_pipx
+  notify: Install pipx
+  register: pipx_version
   ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/pipx --version"
 
-- name: Install pipx
-  when: no_pipx is changed
-  ansible.builtin.shell: >
-    set -o pipefail &&
-    PYENV_ROOT="$HOME/.pyenv" &&
-    PATH="$PYENV_ROOT/bin:$PATH" &&
-    eval "$(pyenv init --path)"  &&
-    eval "$(pyenv init -)" &&
-    PYENV_VERSION={{ default_user_python_version }} python -m pip install --user pipx
-  args:
-    executable: /bin/bash
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Add pipx path to the .bashrc
   ansible.builtin.blockinfile:
@@ -25,10 +17,12 @@
     path: "{{ ansible_env.HOME }}/.bashrc"
 
 - name: Install tools
-  register: tool_installed
-  changed_when: '"already seems to be installed" not in tool_installed.stdout'
-  ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/pipx install {{ item }}"
+  changed_when: '"already seems to be installed" not in is_pipx_tool_installed.stdout'
+  register: is_pipx_tool_installed
   with_items:
-    - pre-commit
     - awscli
+    - cookiecutter
+    - detect-secrets
+    - pre-commit
     - yq
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/pipx install {{ item }}"

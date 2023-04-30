@@ -1,22 +1,44 @@
 - name: Base setup
+  tags:
+    - base
   ansible.builtin.include_tasks:
     file: base.yml
     apply:
       tags:
         - base
-  tags:
-    - base
 
-- name: Add Docker
+- name: Add docker
+  tags:
+    - docker
   ansible.builtin.include_tasks:
     file: docker.yml
     apply:
       tags:
         - docker
+
+- name: Add postgres
   tags:
-    - docker
+    - psql
+  ansible.builtin.include_tasks:
+    file: psql.yml
+    apply:
+      tags:
+        - psql
+
+- name: Add asdf
+  tags:
+    - asdf
+  ansible.builtin.include_tasks:
+    file: asdf.yml
+    apply:
+      tags:
+        - asdf
 
 - name: Add pyenv
+  tags:
+    - pipx
+    - poetry
+    - python
   ansible.builtin.include_tasks:
     file: pyenv.yml
     apply:
@@ -24,43 +46,30 @@
         - pipx
         - poetry
         - python
-  tags:
-    - pipx
-    - poetry
-    - python
 
 - name: Add pipx
+  tags:
+    - pipx
   ansible.builtin.include_tasks:
     file: pipx.yml
     apply:
       tags:
         - pipx
-  tags:
-    - pipx
 
 - name: Add poetry
+  tags:
+    - poetry
   ansible.builtin.include_tasks:
     file: poetry.yml
     apply:
       tags:
         poetry
-  tags:
-    - poetry
 
-- name: Add PostgreSQL client
+- name: Add vagrant
+  tags:
+    - vagrant
   ansible.builtin.include_tasks:
-    file: psql.yml
+    file: vagrant.yml
     apply:
       tags:
-        - psql
-  tags:
-    - psql
-
-- name: Add asdf
-  ansible.builtin.include_tasks:
-    file: asdf.yml
-    apply:
-      tags:
-        - asdf
-  tags:
-    - asdf
+        - vagrant

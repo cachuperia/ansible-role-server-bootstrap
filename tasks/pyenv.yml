@@ -1,22 +1,23 @@
 - name: Install packages for build Python
   become: true
+  with_items:
+    - build-essential
+    - libbz2-dev
+    - libffi-dev
+    - liblzma-dev
+    - libncurses5-dev
+    - libncursesw5-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - llvm
+    - python3-openssl
+    - tk-dev
+    - xz-utils
+    - zlib1g-dev
   ansible.builtin.apt:
     cache_valid_time: "{{ cache_valid_time }}"
-    name:
-      - build-essential
-      - libbz2-dev
-      - libffi-dev
-      - liblzma-dev
-      - libncurses5-dev
-      - libncursesw5-dev
-      - libreadline-dev
-      - libsqlite3-dev
-      - libssl-dev
-      - llvm
-      - python3-openssl
-      - tk-dev
-      - xz-utils
-      - zlib1g-dev
+    name: "{{ item }}"
     update_cache: true
 
 - name: Clone/update pyenv
@@ -25,23 +26,15 @@
     repo: https://github.com/pyenv/pyenv.git
 
 - name: Check default Python version
-  changed_when: (python_version.rc != 0) or
-                (default_user_python_version not in python_version.stdout)
+  changed_when: (global_python.rc != 0) or
+    (default_user_python_version not in global_python.stdout)
   failed_when: false
-  register: python_version
+  notify: Install/modify default Python for user
+  register: global_python
   ansible.builtin.command: "{{ ansible_env.HOME }}/.pyenv/bin/pyenv global"
 
-- name: Install/modify default python for user
-  args:
-    executable: /bin/bash
-  when: python_version is changed
-  ansible.builtin.shell: >
-    PYENV_ROOT="$HOME/.pyenv" &&
-    PATH="$PYENV_ROOT/bin:$PATH" &&
-    eval "$(pyenv init --path)"  &&
-    eval "$(pyenv init -)" &&
-    pyenv install {{ default_user_python_version }} &&
-    pyenv global {{ default_user_python_version }}
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Add pyenv config to the .bashrc
   ansible.builtin.blockinfile:
@@ -56,7 +49,7 @@
 
 - name: Change byobu python
   ansible.builtin.blockinfile:
-    marker: "# {mark} byobu python ANSIBLE MANAGED BLOCK"
+    marker: "# {mark} byobu Python ANSIBLE MANAGED BLOCK"
     block: |
       export BYOBU_PYTHON="$PYENV_ROOT/shims/python"
     path: ~/.bashrc

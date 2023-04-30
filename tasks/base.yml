@@ -2,11 +2,11 @@
   ansible.builtin.include_tasks:
     file: apt-upgrade.yml
 
-- name: Install base apt packages
+- name: Install and configure common apt packages
   ansible.builtin.include_tasks:
     file: apt.yml
 
-- name: Install shell history search
+- name: Install and configure shell history search
   ansible.builtin.include_tasks:
     file: hstr.yml
 

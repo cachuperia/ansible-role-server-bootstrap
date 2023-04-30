@@ -1,0 +1,21 @@
+- name: Add repository apt key
+  become: true
+  ansible.builtin.apt_key:
+    id: 798AEC654E5C15428C8E42EEAA16FCBCA621E701
+    keyring: /etc/apt/trusted.gpg.d/hashicorp-archive-keyring.gpg
+    state: present
+    url: https://apt.releases.hashicorp.com/gpg
+
+- name: Add repository to the apt sources
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    state: present
+
+- name: Install packages
+  become: true
+  with_items:
+    - virtualbox
+    - vagrant
+  ansible.builtin.apt:
+    name: "{{ item }}"

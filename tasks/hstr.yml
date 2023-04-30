@@ -1,17 +1,14 @@
-- name: Add PPA for hstr
+- name: Add hstr repository to the apt sources
   become: true
-  register: hstr_ppa_added
   ansible.builtin.apt_repository:
     repo: "ppa:ultradvorka/ppa"
     state: present
 
 - name: Install hstr
   become: true
-  when: hstr_ppa_added is changed
   ansible.builtin.apt:
     name:
       - hstr
-    update_cache: true
 
 - name: Add hstr config to the .bashrc
   ansible.builtin.blockinfile:
@@ -30,7 +27,3 @@
       export HSTR_TIOCSTI=y
     marker: "# {mark} hstr ANSIBLE MANAGED BLOCK"
     path: "{{ ansible_env.HOME }}/.bashrc"
-
-- name: Reboot instance if necessary
-  ansible.builtin.include_tasks:
-    file: reboot.yml

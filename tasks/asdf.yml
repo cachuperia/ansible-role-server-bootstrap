@@ -1,8 +1,8 @@
 - name: Clone/update asdf
   ansible.builtin.git:
+    depth: 1
     dest: "{{ ansible_env.HOME }}/.asdf"
     repo: https://github.com/asdf-vm/asdf.git
-    depth: 1
     version: v{{ asdf_expected }}
 
 - name: Add asdf config to the .bashrc
@@ -15,16 +15,24 @@
     path: "{{ ansible_env.HOME }}/.bashrc"
 
 - name: Install plugins
-  register: asdf_plugins_installed
-  changed_when: '"already added" not in asdf_plugins_installed.stderr'
-  ansible.builtin.command: "{{ ansible_env.HOME }}/.asdf/bin/asdf plugin-add {{ item }}"
+  changed_when: '"already added" not in is_asdf_plugin_installed.stderr'
   failed_when: false
+  register: is_asdf_plugin_installed
   with_items:
     - github-cli https://github.com/bartlomiejdanek/asdf-github-cli.git
-    - packer https://github.com/asdf-community/asdf-hashicorp.git
-    - terraform https://github.com/asdf-community/asdf-hashicorp.git
-    - terragrunt https://github.com/ohmer/asdf-terragrunt
-    - terraform-docs https://github.com/looztra/asdf-terraform-docs
-    - tflint https://github.com/skyzyx/asdf-tflint
-    - sops https://github.com/feniix/asdf-sops.git
+    - lazydocker https://github.com/comdotlinux/asdf-lazydocker.git
     - nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    - packer https://github.com/asdf-community/asdf-hashicorp.git
+    - sops https://github.com/feniix/asdf-sops.git
+    - terraform https://github.com/asdf-community/asdf-hashicorp.git
+    - terraform-docs https://github.com/looztra/asdf-terraform-docs
+    - terragrunt https://github.com/ohmer/asdf-terragrunt
+    - tflint https://github.com/skyzyx/asdf-tflint
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.asdf/bin/asdf plugin-add {{ item }}"
+
+- name: Install tools
+  changed_when: '"already installed" not in is_asdf_tool_installed.stdout'
+  register: is_asdf_tool_installed
+  with_items:
+    - lazydocker
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.asdf/bin/asdf install {{ item }} latest && {{ ansible_env.HOME }}/.asdf/bin/asdf global {{ item }} latest"
