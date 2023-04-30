@@ -37,21 +37,38 @@ asdf_expected: 0.11.3
 - **_python_** - Install/update `pyenv`, build Python `default_user_python_version`, and configure it as global for user.
 - **_vagrant_** - Install `virtualbox` and `vagrant`
 
-### Example Playbook
+### Usage Example
+
+Create `requirements.yml` file:
+
+```yaml
+# requirements.yml
+roles:
+  - src: git+ssh://git@github.com/cachuperia/ansible-role-server-bootstrap.git
+    scm: git
+    version: v1.1.0
+```
+
+Install role:
 
 ```shell
-ansible-playbook playbook.yml --extra-vars "ansible_sudo_pass=<sudo password>" --tags "<tag1>,<tag2>" --skip-tags "<tag>"
+ansible-galaxy install -r requirements.yml
 ```
+
+Create `playbook.yml`:
 
 ```yaml
 # playbook.yml
 - hosts: servers
   roles:
-    - src: git+ssh://git@github.com/cachuperia/ansible-role-server-bootstrap.git
-      scm: git
-      version: v1.1.0
-      vars:
-        default_user_python_version: 3.11.11
+    - role: ansible-role-server-bootstrap
+      default_user_python_version: 3.11.11
+```
+
+Run playbook:
+
+```shell
+ansible-playbook playbook.yml --extra-vars "ansible_sudo_pass=<sudo password>" --tags "<tag1>,<tag2>" --skip-tags "<tag>"
 ```
 
 ## Contributing
