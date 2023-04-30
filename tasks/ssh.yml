@@ -1,4 +1,4 @@
-- name: Create SSH config file
+- name: Create client config file if not exists
   ansible.builtin.file:
     access_time: preserve
     mode: "600"
@@ -6,13 +6,15 @@
     path: "{{ ansible_env.HOME }}/.ssh/config"
     state: touch
 
-- name: Configure SSH client
+- name: Configure client
   ansible.builtin.blockinfile:
     block: |
+      # https://carlosbecker.com/posts/ssh-tips-and-tricks/
       Host *
         AddressFamily inet
         ControlMaster auto
         ControlPath /tmp/%r@%h-%p
+        ControlPersist 300s
         IdentitiesOnly yes
         ServerAliveCountMax 3
         ServerAliveInterval 30

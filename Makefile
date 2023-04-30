@@ -1,4 +1,12 @@
-SHELL = /bin/bash
+SHELL := /bin/bash
+# https://www.gushiciku.cn/pl/p6TH
+.SHELLFLAGS := -euo pipefail -c
+.ONESHELL:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
+
+ROOT := $(shell pwd)
+
 .DEFAULT_GOAL = help
 
 ##@ Bootstrap
@@ -9,7 +17,6 @@ repo-init:  ## Install pre-commit in repo
 
 init: repo-init  ## All init steps at once
 
-
 ##@ Checks
 .PHONY: check
 
@@ -17,14 +24,28 @@ check:  ## Run pre-commit against all files
 	pre-commit run --all-files
 
 ##@ Tests
-.PHONY: test
-	ansible-playbook test.yml
+.PONY: test
+
+test:  ## Run all tests
+	$(MAKE) -C ${ROOT}/tests/ jammy64 clean
 
 ##@ Miscellaneous
-.PHONY: tasks
+.PHONY: secrets-baseline-create secrets-baseline-audit secrets-update tasks
+
+clean:  ## Clean repo
+	# Delete caches, build artifacts, etc.
+
+secrets-baseline-create:  ## Create/update .secrets.baseline file
+	detect-secrets scan --baseline .secrets.baseline
+
+secrets-baseline-audit:  ## Check updated .secrets.baseline file
+	detect-secrets audit .secrets.baseline
+	git commit .secrets.baseline --no-verify -m "build(security): update secrets.baseline"
+
+secrets-update: secrets-baseline-create secrets-baseline-audit  ## Update secrets baseline file
 
 tasks:  ## List playbook tasks
-	ansible-playbook test.yml --list-tasks
+	ansible-playbook playbook.yml --list-tasks
 
 ##@ Helpers
 .PHONY: help

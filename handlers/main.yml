@@ -1,2 +1,60 @@
----
-# handlers file for server-bootstrap
+# https://www.cherryservers.com/blog/how-to-define-and-use-handlers-in-ansible-playbooks
+
+- name: Reboot
+  become: true
+  ansible.builtin.reboot:
+    msg: Rebooting to complete system upgrade
+    reboot_timeout: 120
+
+- name: Restart docker daemon
+  become: true
+  with_items:
+    - docker
+    - containerd
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+
+- name: Install/modify default Python for user
+  changed_when: false
+  args:
+    executable: /bin/bash
+  ansible.builtin.shell: >
+    PYENV_ROOT="$HOME/.pyenv" &&
+    PATH="$PYENV_ROOT/bin:$PATH" &&
+    eval "$(pyenv init --path)"  &&
+    eval "$(pyenv init -)" &&
+    pyenv install {{ default_user_python_version }} &&
+    pyenv global {{ default_user_python_version }}
+
+- name: Install pipx
+  changed_when: false
+  ansible.builtin.shell: >
+    set -o pipefail &&
+    PYENV_ROOT="$HOME/.pyenv" &&
+    PATH="$PYENV_ROOT/bin:$PATH" &&
+    eval "$(pyenv init --path)"  &&
+    eval "$(pyenv init -)" &&
+    PYENV_VERSION={{ default_user_python_version }} python -m pip install --user pipx
+  args:
+    executable: /bin/bash
+
+- name: Install poetry
+  changed_when: false
+  ansible.builtin.shell: >
+    set -o pipefail &&
+    PYENV_ROOT="$HOME/.pyenv" &&
+    PATH="$PYENV_ROOT/bin:$PATH" &&
+    eval "$(pyenv init --path)"  &&
+    eval "$(pyenv init -)" &&
+    curl -sSL https://install.python-poetry.org |
+    PYENV_VERSION={{ default_user_python_version }} python
+  args:
+    executable: /bin/bash
+
+- name: Configure poetry
+  changed_when: false
+  failed_when: poetry_configured.rc != 0
+  register: poetry_configured
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/poetry config virtualenvs.in-project true"

@@ -1,0 +1,4 @@
+- name: Run role
+  hosts: localhost
+  roles:
+    - { role: . }

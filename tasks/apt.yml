@@ -1,35 +1,45 @@
-- name: Install base apt packages
+- name: Install packages
   become: true
+  with_items:
+    - apt-transport-https
+    - avahi-daemon
+    - avahi-utils
+    - byobu
+    - ca-certificates
+    - curl
+    - direnv
+    - git
+    - gnupg-agent
+    - htop
+    - iotop
+    - jq
+    - lsb-release
+    - make
+    - multitail
+    - python3
+    - python3-pip
+    - software-properties-common
+    - unzip
+    - wget
   ansible.builtin.apt:
     cache_valid_time: "{{ cache_valid_time }}"
-    name:
-      - apt-transport-https
-      - byobu
-      - ca-certificates
-      - curl
-      - direnv
-      - git
-      - gnupg-agent
-      - htop
-      - iotop
-      - jq
-      - lsb-release
-      - make
-      - multitail
-      - python3
-      - python3-pip
-      - software-properties-common
-      - unzip
-      - wget
+    name: "{{ item }}"
     update_cache: true
 
-- name: Add direnv hook to the .bashrc config
+- name: Check if reboot is required
+  changed_when: reboot_required.stat.exists
+  notify: Reboot
+  register: reboot_required
+  ansible.builtin.stat:
+    get_checksum: false
+    path: /var/run/reboot-required
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: Add direnv config to the .bashrc
   ansible.builtin.blockinfile:
     block: |
       eval "$(direnv hook bash)"
     marker: "# {mark} direnv ANSIBLE MANAGED BLOCK"
     path: "{{ ansible_env.HOME }}/.bashrc"
-
-- name: Reboot instance if necessary
-  ansible.builtin.include_tasks:
-    file: reboot.yml
