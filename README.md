@@ -49,7 +49,7 @@ ansible-playbook playbook.yml --extra-vars "ansible_sudo_pass=<sudo password>" -
   roles:
     - src: git+ssh://git@github.com/cachuperia/ansible-role-server-bootstrap.git
       scm: git
-      version: v1.0.1
+      version: v1.1.0
       vars:
         default_user_python_version: 3.11.11
 ```

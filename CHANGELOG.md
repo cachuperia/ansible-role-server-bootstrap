@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.1.0 (2023-04-30)
+### Feature
+* Add `vagrant`, `lazydocker` and `cookiecutter` ([`2f21473`](https://github.com/cachuperia/ansible-role-server-bootstrap/commit/2f21473d0bf9aa368d8cd5e6bca5aeea3da21eb0))
+
 ## v1.0.1 (2023-04-25)
 ### Fix
 * Execute as root ([`07ea86b`](https://github.com/IaroslavR/ansible-role-server-bootstrap/commit/07ea86bcffdc9c35b63b355a5d3914897c8006a8))
