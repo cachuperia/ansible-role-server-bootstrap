@@ -1,5 +1,4 @@
 warn_list:
-  - git-latest
   - 'name[template]' # Jinja templates should only be at the end of ‘name’
   - role-name[path]
 exclude_paths:

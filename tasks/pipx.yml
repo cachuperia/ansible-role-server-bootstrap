@@ -19,10 +19,5 @@
 - name: Install tools
   changed_when: '"already seems to be installed" not in is_pipx_tool_installed.stdout'
   register: is_pipx_tool_installed
-  with_items:
-    - awscli
-    - cookiecutter
-    - detect-secrets
-    - pre-commit
-    - yq
+  with_items: "{{ pipx_packages }}"
   ansible.builtin.command: "{{ ansible_env.HOME }}/.local/bin/pipx install {{ item }}"

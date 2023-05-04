@@ -19,3 +19,4 @@
     - vagrant
   ansible.builtin.apt:
     name: "{{ item }}"
+    cache_valid_time: "{{ cache_valid_time }}"

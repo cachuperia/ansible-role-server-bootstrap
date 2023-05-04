@@ -16,7 +16,7 @@
       tags:
         - docker
 
-- name: Add postgres
+- name: Add PostgreSQL
   tags:
     - psql
   ansible.builtin.include_tasks:

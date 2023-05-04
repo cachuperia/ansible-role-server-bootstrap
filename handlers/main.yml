@@ -17,41 +17,39 @@
     enabled: true
 
 - name: Install/modify default Python for user
-  changed_when: false
   args:
     executable: /bin/bash
-  ansible.builtin.shell: >
-    PYENV_ROOT="$HOME/.pyenv" &&
-    PATH="$PYENV_ROOT/bin:$PATH" &&
-    eval "$(pyenv init --path)"  &&
-    eval "$(pyenv init -)" &&
-    pyenv install {{ default_user_python_version }} &&
-    pyenv global {{ default_user_python_version }}
+  changed_when: false
+  ansible.builtin.shell: |
+    PYENV_ROOT="$HOME/.pyenv"
+    PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    pyenv install {{ python_version }}
+    pyenv global {{ python_version }}
 
 - name: Install pipx
-  changed_when: false
-  ansible.builtin.shell: >
-    set -o pipefail &&
-    PYENV_ROOT="$HOME/.pyenv" &&
-    PATH="$PYENV_ROOT/bin:$PATH" &&
-    eval "$(pyenv init --path)"  &&
-    eval "$(pyenv init -)" &&
-    PYENV_VERSION={{ default_user_python_version }} python -m pip install --user pipx
   args:
     executable: /bin/bash
+  changed_when: false
+  ansible.builtin.shell: |
+    PYENV_ROOT="$HOME/.pyenv"
+    PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    PYENV_VERSION={{ python_version }} python -m pip install --user pipx
 
 - name: Install poetry
-  changed_when: false
-  ansible.builtin.shell: >
-    set -o pipefail &&
-    PYENV_ROOT="$HOME/.pyenv" &&
-    PATH="$PYENV_ROOT/bin:$PATH" &&
-    eval "$(pyenv init --path)"  &&
-    eval "$(pyenv init -)" &&
-    curl -sSL https://install.python-poetry.org |
-    PYENV_VERSION={{ default_user_python_version }} python
   args:
     executable: /bin/bash
+  changed_when: false
+  ansible.builtin.shell: |
+    set -o pipefail
+    PYENV_ROOT="$HOME/.pyenv"
+    PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    curl -sSL https://install.python-poetry.org | PYENV_VERSION={{ python_version }} python
 
 - name: Configure poetry
   changed_when: false
