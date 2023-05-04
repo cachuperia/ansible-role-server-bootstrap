@@ -23,6 +23,8 @@
     - docker-compose-plugin
   ansible.builtin.apt:
     name: "{{ item }}"
+    cache_valid_time: "{{ cache_valid_time }}"
+
 
 - name: Create docker group
   become: true

@@ -6,6 +6,10 @@
 
 * [About](#about)
 * [Usage](#usage)
+  * [Requirements](#requirements)
+  * [Role Variables](#role-variables)
+  * [Role Tags](#role-tags)
+  * [Usage Example](#usage-example)
 * [Contributing](#contributing)
 
 ## About
@@ -22,8 +26,69 @@ This [Ansible][ans] role is designed to bootstrap a development server running U
 
 ```yaml
 cache_valid_time: 3600
-default_user_python_version: 3.10.11
-asdf_expected: 0.11.3
+
+apt_packages:
+  - apt-transport-https
+  - avahi-daemon
+  - avahi-utils
+  - byobu
+  - ca-certificates
+  - curl
+  - direnv
+  - git
+  - gnupg-agent
+  - htop
+  - iotop
+  - jq
+  - lsb-release
+  - make
+  - multitail
+  - podman
+  - python3
+  - python3-pip
+  - software-properties-common
+  - unzip
+  - wget
+  - whois
+
+pyenv_version: 2.3.17
+
+python_version: 3.10.11  # default Python for user
+
+pipx_packages:
+  - awscli
+  - cookiecutter
+  - detect-secrets
+  - pre-commit
+  - yq
+
+asdf_version: 0.11.3
+asdf_plugins:
+  - name: github-cli
+    repo: https://github.com/bartlomiejdanek/asdf-github-cli.git
+  - name: lazydocker
+    repo: https://github.com/comdotlinux/asdf-lazydocker.git
+  - name: nodejs
+    repo: https://github.com/asdf-vm/asdf-nodejs.git
+  - name: packer
+    repo: https://github.com/asdf-community/asdf-hashicorp.git
+  - name: sops
+    repo: https://github.com/feniix/asdf-sops.git
+  - name: terraform
+    repo: https://github.com/asdf-community/asdf-hashicorp.git
+  - name: terraform-docs
+    repo: https://github.com/looztra/asdf-terraform-docs
+  - name: terragrunt
+    repo: https://github.com/ohmer/asdf-terragrunt
+  - name: tflint
+    repo: https://github.com/skyzyx/asdf-tflint
+asdf_global:
+  - name: lazydocker
+    version: latest
+  - name: github-cli
+    version: latest
+  - name: sops
+    version: latest
 ```
 
 ### Role Tags
@@ -34,7 +99,7 @@ asdf_expected: 0.11.3
 - **_pipx_** - Install `pipix` and globally available tools, configure `.bashrc`.
 - **_poetry_** - Install/update `poetry`, configure `.bashrc`.
 - **_psql_** - Configure official `PostgreSQL` repository as `apt` source, install `psql` client.
-- **_python_** - Install/update `pyenv`, build Python `default_user_python_version`, and configure it as global for user.
+- **_python_** - Install/update `pyenv`, build Python `python_version`, and configure it as global for user.
 - **_vagrant_** - Install `virtualbox` and `vagrant`
 
 ### Usage Example

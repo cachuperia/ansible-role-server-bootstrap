@@ -8,6 +8,8 @@
   become: true
   ansible.builtin.apt:
     upgrade: dist
+    autoclean: true
+    autoremove: true
 
 - name: Check if reboot is required
   changed_when: reboot_required.stat.exists

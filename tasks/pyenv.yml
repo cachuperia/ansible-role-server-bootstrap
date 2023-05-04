@@ -18,16 +18,16 @@
   ansible.builtin.apt:
     cache_valid_time: "{{ cache_valid_time }}"
     name: "{{ item }}"
-    update_cache: true
 
 - name: Clone/update pyenv
   ansible.builtin.git:
     dest: "{{ ansible_env.HOME }}/.pyenv"
     repo: https://github.com/pyenv/pyenv.git
+    version: v{{ pyenv_version }}
 
 - name: Check default Python version
   changed_when: (global_python.rc != 0) or
-    (default_user_python_version not in global_python.stdout)
+    (python_version not in global_python.stdout)
   failed_when: false
   notify: Install/modify default Python for user
   register: global_python

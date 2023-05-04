@@ -7,8 +7,8 @@
 - name: Install hstr
   become: true
   ansible.builtin.apt:
-    name:
-      - hstr
+    name: hstr
+    cache_valid_time: "{{ cache_valid_time }}"
 
 - name: Add hstr config to the .bashrc
   ansible.builtin.blockinfile:
