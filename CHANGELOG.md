@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.1.1 (2023-05-04)
+### Fix
+* **refactor:** Move tools and apt packages to install to the variables ([`7a39705`](https://github.com/cachuperia/ansible-role-server-bootstrap/commit/7a3970585af12cad0d0f6cc680c00c8401dd365d))
+
+### Documentation
+* Fix usage example ([`3281d4f`](https://github.com/cachuperia/ansible-role-server-bootstrap/commit/3281d4fe199b624a42392bf17d8ec1e0d6a01cb8))
+
 ## v1.1.0 (2023-04-30)
 ### Feature
 * Add `vagrant`, `lazydocker` and `cookiecutter` ([`2f21473`](https://github.com/cachuperia/ansible-role-server-bootstrap/commit/2f21473d0bf9aa368d8cd5e6bca5aeea3da21eb0))
