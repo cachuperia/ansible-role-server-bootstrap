@@ -93,14 +93,14 @@ asdf_global:
 
 ### Role Tags
 
-- **_asdf_** - Install `asdf`, `asdf` plugins and globally available tools, configure `.bashrc`.
-- **_base_** - Install common `apt` packages, configure `.bashrc` and `.ssh/config` for user.
-- **_docker_** - Configure official Docker repository as `apt` source, install `docker`.
-- **_pipx_** - Install `pipix` and globally available tools, configure `.bashrc`.
+- **_asdf_** - Install `asdf`, `asdf_plugins` and `asdf_global` tools, configure `.bashrc`.
+- **_base_** - Install `apt_packages`, configure `.bashrc` and `.ssh/config` for user.
+- **_docker_** - Configure official Docker repository as `apt` source, install `docker` tools and services.
+- **_pipx_** - Install `pipix` and `pipx_packages`, configure `.bashrc`.
 - **_poetry_** - Install/update `poetry`, configure `.bashrc`.
 - **_psql_** - Configure official `PostgreSQL` repository as `apt` source, install `psql` client.
 - **_python_** - Install/update `pyenv`, build Python `python_version`, and configure it as global for user.
-- **_vagrant_** - Install `virtualbox` and `vagrant`
+- **_vagrant_** - Install `virtualbox` and `vagrant`.
 
 ### Usage Example
 
